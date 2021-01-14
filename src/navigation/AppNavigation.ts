@@ -10,6 +10,7 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 import {createDrawerNavigator}            from 'react-navigation-drawer'
 import {AsyncStorageService}              from "../services/helpers/asyncStorageService";
 import {MainScreen}                       from "../screens/MainScreen";
+import {AuthScreen}                       from "../screens/AuthScreen";
 
 const navigatorOptions = {
    defaultNavigationOptions: {
@@ -28,6 +29,9 @@ const ExpenseNavigator = createStackNavigator({
    Main: MainScreen
 }, navigatorOptions)
 
+const AuthScreenNavigator = createStackNavigator({
+   Main: AuthScreen
+}, navigatorOptions)
 /*const PostNavigator = createStackNavigator({
    Main: MainScreen,
    Post: PostScreen
@@ -77,6 +81,7 @@ const BottomNavigator = Platform.OS === 'android' ? createMaterialBottomTabNavig
 
 
 
+
 const MainNavigator = createDrawerNavigator({
    PostTabs: {
       screen: ExpenseNavigator,
@@ -100,6 +105,5 @@ const MainNavigator = createDrawerNavigator({
    }
 })
 
-
-
 export const AppNavigation = createAppContainer(MainNavigator)
+export const AuthNavigation = createAppContainer(AuthScreenNavigator)
