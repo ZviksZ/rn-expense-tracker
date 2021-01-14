@@ -1,0 +1,6 @@
+export const THEME = {
+   MAIN_COLOR: '#FC6E20',
+   SECONDARY_COLOR: '#323232',
+   LIGHT_COLOR: '#FFE7D0',
+   TEXT_COLOR: '#1B1B1B'
+}
