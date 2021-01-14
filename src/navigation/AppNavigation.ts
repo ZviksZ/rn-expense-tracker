@@ -1,13 +1,15 @@
 import React                      from "react";
 import {createAppContainer}       from 'react-navigation'
 import {createStackNavigator}     from 'react-navigation-stack'
-import {AboutScreen}              from "../screens/AboutScreen";
-import {THEME}                    from "../theme";
-import {Platform}                 from 'react-native'
-import {createBottomTabNavigator} from 'react-navigation-tabs'
-import {Ionicons}                 from '@expo/vector-icons'
+import {AboutScreen}                      from "../screens/AboutScreen";
+import {THEME}                            from "../theme";
+import {Platform}                         from 'react-native'
+import {createBottomTabNavigator}         from 'react-navigation-tabs'
+import {Ionicons}                         from '@expo/vector-icons'
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 import {createDrawerNavigator}            from 'react-navigation-drawer'
+import {AsyncStorageService}              from "../services/helpers/asyncStorageService";
+import {MainScreen}                       from "../screens/MainScreen";
 
 const navigatorOptions = {
    defaultNavigationOptions: {
@@ -17,6 +19,14 @@ const navigatorOptions = {
       headerTintColor: Platform.OS === 'android' ? '#fff' : THEME.MAIN_COLOR
    }
 }
+
+const AboutNavigator = createStackNavigator({
+   About: AboutScreen
+}, navigatorOptions)
+
+const ExpenseNavigator = createStackNavigator({
+   Main: MainScreen
+}, navigatorOptions)
 
 /*const PostNavigator = createStackNavigator({
    Main: MainScreen,
@@ -69,22 +79,16 @@ const BottomNavigator = Platform.OS === 'android' ? createMaterialBottomTabNavig
 
 const MainNavigator = createDrawerNavigator({
    PostTabs: {
-      screen: AboutScreen,
+      screen: ExpenseNavigator,
       navigationOptions: {
          drawerLabel: 'Главная',
          /*drawerIcon: <Ionicons name="ios-star" />*/
       }
    },
    About: {
-      screen: AboutScreen,
+      screen: AboutNavigator,
       navigationOptions: {
          drawerLabel: 'О приложении',
-      }
-   },
-   Create: {
-      screen: AboutScreen,
-      navigationOptions: {
-         drawerLabel: 'Новый пост',
       }
    }
 }, {
@@ -95,6 +99,7 @@ const MainNavigator = createDrawerNavigator({
       }
    }
 })
+
 
 
 export const AppNavigation = createAppContainer(MainNavigator)

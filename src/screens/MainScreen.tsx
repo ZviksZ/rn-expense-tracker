@@ -4,18 +4,16 @@ import {THEME}                                     from "../theme";
 import {AppHeaderIcon}                             from "../components/ui/AppHeaderIcon";
 import {HeaderButtons, Item}                       from "react-navigation-header-buttons";
 
-export const AboutScreen = () => {
+export const MainScreen = () => {
    return (
       <View style={styles.center}>
-         <ActivityIndicator color={THEME.MAIN_COLOR} size="large"/>
-         <Text>Это приложение для личных заметок</Text>
-         <Text>Версия приложения <Text style={styles.version}>1.0.0</Text></Text>
+         <Text>Главная</Text>
       </View>
    );
 }
 
-AboutScreen.navigationOptions = ({navigation}: any) => ({
-   headerTitle: 'О приложении',
+MainScreen.navigationOptions = ({navigation}: any) => ({
+   headerTitle: 'Главная',
    headerLeft: () => <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
       <Item title="Toggle drawer" iconName="ios-menu" onPress={() => navigation.toggleDrawer()}/>
    </HeaderButtons>
