@@ -1,7 +1,8 @@
-import * as React                           from 'react';
+import * as React                                                              from 'react';
 import {StyleSheet, View, TouchableOpacity, TouchableNativeFeedback, Platform} from 'react-native'
-import {THEME}                              from "../../theme";
-import {AppTextBold}                        from "./AppTextBold";
+import {THEME}                                                                 from "../../theme";
+import {AppTextBold}                                                           from "./AppTextBold";
+
 
 type Props = {
    children: React.ReactNode
@@ -10,15 +11,23 @@ type Props = {
 }
 
 export const AppButton: React.FC<Props> = ({children, onPress, color = THEME.MAIN_COLOR}) => {
-   const Wrapper = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity
+
+   const content = <View style={{...styles.button, backgroundColor: color}}>
+      <AppTextBold style={styles.text}>
+         {children}
+      </AppTextBold>
+   </View>
+
    return (
-      <Wrapper onPress={onPress} activeOpacity={0.7}>
-         <View style={{...styles.button, backgroundColor: color}}>
-            <AppTextBold style={styles.text}>
-               {children}
-            </AppTextBold>
-         </View>
-      </Wrapper>
+      <>
+         {
+            Platform.OS === 'android' ? <TouchableNativeFeedback onPress={onPress} >
+               {content}
+            </TouchableNativeFeedback> : <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+               {content}
+            </TouchableOpacity>
+         }
+      </>
    );
 }
 

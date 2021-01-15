@@ -1,4 +1,4 @@
-import React                                                     from 'react';
+import React, {useState}                                         from 'react';
 import {StyleSheet, ActivityIndicator, View, TextInput, Text}    from "react-native";
 import {THEME}                                                   from "../theme";
 import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
@@ -6,6 +6,8 @@ import {AppButton}                                               from "../compon
 import {useForm, Controller}                                     from "react-hook-form";
 import {yupResolver}                                             from '@hookform/resolvers/yup'
 import * as yup                                                  from 'yup'
+import {useDispatch}                                             from "react-redux";
+import {loginRequest, registerRequest}                           from "../store/ducks/global/thunks";
 
 export const loginSchema = yup.object().shape({
    login: yup.string().required('Обязательное поле').email('Введите корректный email'),
@@ -22,11 +24,14 @@ interface IFormInputs {
 }
 
 export const AuthScreen = ({navigation}: Props) => {
+   const dispatch = useDispatch()
    const {control, handleSubmit, errors} = useForm<IFormInputs>({
       resolver: yupResolver(loginSchema),
    })
 
-   const onSubmit = (data: IFormInputs) => console.log(data);
+   const onSubmit = async (data: IFormInputs) => {
+      dispatch(loginRequest(data))
+   };
 
    return (
       <View style={styles.wrapper}>
@@ -58,6 +63,7 @@ export const AuthScreen = ({navigation}: Props) => {
                   autoCapitalize="none"
                   autoCorrect={false}
                   placeholder="Пароль"
+                  secureTextEntry
                />
             )}
             name="password"

@@ -11,6 +11,7 @@ import {createDrawerNavigator}            from 'react-navigation-drawer'
 import {AsyncStorageService}              from "../services/helpers/asyncStorageService";
 import {MainScreen}                       from "../screens/MainScreen";
 import {AuthScreen}                       from "../screens/AuthScreen";
+import {OptionsScreen}                    from "../screens/OptionsScreen";
 
 const navigatorOptions = {
    defaultNavigationOptions: {
@@ -31,6 +32,10 @@ const ExpenseNavigator = createStackNavigator({
 
 const AuthScreenNavigator = createStackNavigator({
    Main: AuthScreen
+}, navigatorOptions)
+
+const OptionsScreenNavigator = createStackNavigator({
+   Main: OptionsScreen
 }, navigatorOptions)
 /*const PostNavigator = createStackNavigator({
    Main: MainScreen,
@@ -94,8 +99,16 @@ const MainNavigator = createDrawerNavigator({
       screen: AboutNavigator,
       navigationOptions: {
          drawerLabel: 'О приложении',
-      }
-   }
+
+      },
+   },
+   Options: {
+      screen: OptionsScreenNavigator,
+      navigationOptions: {
+         drawerLabel: 'Настройки',
+
+      },
+   },
 }, {
    contentOptions: {
       activeTintColor: THEME.MAIN_COLOR,

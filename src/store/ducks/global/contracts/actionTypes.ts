@@ -1,5 +1,6 @@
-import { Action } from 'redux'
-import { LoadingStatus } from '../../../types'
+import { Action }          from 'redux'
+import { LoadingStatus }   from '../../../types'
+import {UserDataInterface} from "./state";
 
 export enum GlobalActionsType {
 	SET_USER = 'global/SET_USER',
@@ -9,7 +10,7 @@ export enum GlobalActionsType {
 
 export interface SetUserActionInterface extends Action<GlobalActionsType> {
 	type: GlobalActionsType.SET_USER
-	payload: any | null
+	payload: UserDataInterface | null
 }
 export interface SetGlobalMessageActionInterface extends Action<GlobalActionsType> {
 	type: GlobalActionsType.SET_GLOBAL_MESSAGE
