@@ -1,11 +1,11 @@
-import React, {useState}                                         from 'react';
-import {StyleSheet, ActivityIndicator, View, TextInput, Text}    from "react-native";
-import {THEME}                                                   from "../theme";
-import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
-import {AppButton}                                               from "../components/ui/AppButton";
-import {useForm, Controller}                                     from "react-hook-form";
-import {yupResolver}                                             from '@hookform/resolvers/yup'
-import * as yup                                                  from 'yup'
+import React, {useState}                                              from 'react';
+import {StyleSheet, ActivityIndicator, View, TextInput, Text, Button} from "react-native";
+import {THEME}                                                        from "../theme";
+import {NavigationParams, NavigationScreenProp, NavigationState}      from "react-navigation";
+import {AppButton}                                                    from "../components/ui/AppButton";
+import {useForm, Controller}                                          from "react-hook-form";
+import {yupResolver}                                                  from '@hookform/resolvers/yup'
+import * as yup                                                       from 'yup'
 import {useDispatch}                                             from "react-redux";
 import {loginRequest, registerRequest}                           from "../store/ducks/global/thunks";
 
@@ -23,15 +23,24 @@ interface IFormInputs {
    password: string
 }
 
-export const AuthScreen = ({navigation}: Props) => {
+export const AuthScreen = () => {
+   const [isLogin, setIsLogin] = useState(true)
    const dispatch = useDispatch()
    const {control, handleSubmit, errors} = useForm<IFormInputs>({
       resolver: yupResolver(loginSchema),
    })
 
    const onSubmit = async (data: IFormInputs) => {
-      dispatch(loginRequest(data))
+      if (isLogin) {
+         dispatch(loginRequest(data))
+      } else {
+         dispatch(registerRequest(data))
+      }
    };
+
+   const changeAuthTypeHandler = () => {
+      setIsLogin(prev => !prev)
+   }
 
    return (
       <View style={styles.wrapper}>
@@ -72,8 +81,13 @@ export const AuthScreen = ({navigation}: Props) => {
          {errors.password && <Text>{errors.password.message}</Text>}
 
          <AppButton color={THEME.MAIN_COLOR} onPress={handleSubmit(onSubmit)}>
-            <Text>Войти</Text>
+            <Text>{isLogin ? 'Войти' : 'Зарегистрироваться'}</Text>
          </AppButton>
+
+         <View style={styles.bottom}>
+            <Button title={isLogin ? 'Регистрация' : 'Войти в аккаунт'} onPress={changeAuthTypeHandler} color={THEME.SECONDARY_COLOR}/>
+         </View>
+
       </View>
    );
 }
@@ -85,7 +99,9 @@ AuthScreen.navigationOptions = ({navigation}: Props) => ({
 const styles = StyleSheet.create({
    wrapper: {
       flex: 1,
+      height: '100%',
       flexDirection: "column",
+      justifyContent:"flex-start",
       marginBottom: 15,
       paddingVertical: 20,
       paddingHorizontal: 10
@@ -98,5 +114,13 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       paddingVertical: 15
    },
+   bottom: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      marginBottom: 16
+   },
+   changeBtn: {
+      opacity: 0.7
+   }
 });
 

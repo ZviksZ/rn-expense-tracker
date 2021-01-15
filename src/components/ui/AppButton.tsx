@@ -8,11 +8,12 @@ type Props = {
    children: React.ReactNode
    onPress?: any
    color: string
+   style?: any
 }
 
-export const AppButton: React.FC<Props> = ({children, onPress, color = THEME.MAIN_COLOR}) => {
+export const AppButton: React.FC<Props> = ({children, style, onPress, color = THEME.MAIN_COLOR}) => {
 
-   const content = <View style={{...styles.button, backgroundColor: color}}>
+   const content = <View style={{...styles.button, ...style, backgroundColor: color}}>
       <AppTextBold style={styles.text}>
          {children}
       </AppTextBold>
