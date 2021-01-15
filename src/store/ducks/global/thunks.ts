@@ -1,7 +1,8 @@
 import {AppActions, AppState} from "../../store";
 import {Dispatch}             from "redux";
 import {FirebaseService}      from "../../../services/api/firebaseService";
-import {setUser} from "./actionCreators";
+import {setUser}              from "./actionCreators";
+import {Alert}                from "react-native";
 
 export type AuthData = {
    login: string
@@ -13,8 +14,10 @@ export const registerRequest = (data: AuthData) => async (dispatch: Dispatch<App
       const response = await FirebaseService.register(data.login, data.password)
 
       dispatch(setUser(response))
-   } catch (e) {
 
+      Alert.alert('Регистрация прошла успешно')
+   } catch (e) {
+      Alert.alert('Ошибка при регистрации, попробуйте еще раз')
    }
 }
 export const loginRequest = (data: AuthData) => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
@@ -22,7 +25,9 @@ export const loginRequest = (data: AuthData) => async (dispatch: Dispatch<AppAct
       const response = await FirebaseService.login(data.login, data.password)
 
       dispatch(setUser(response))
-   } catch (e) {
 
+      Alert.alert('Вход выполнен успешно')
+   } catch (e) {
+      Alert.alert('Ошибка при входе, попробуйте еще раз')
    }
 }

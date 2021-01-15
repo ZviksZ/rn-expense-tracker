@@ -60,7 +60,7 @@ export const AuthScreen = () => {
             name="login"
             defaultValue=""
          />
-         {errors.login && <Text>{errors.login.message}</Text>}
+         {errors.login && <Text style={styles.error}>{errors.login.message}</Text>}
          <Controller
             control={control}
             render={({onChange, onBlur, value}) => (
@@ -78,7 +78,7 @@ export const AuthScreen = () => {
             name="password"
             defaultValue=""
          />
-         {errors.password && <Text>{errors.password.message}</Text>}
+         {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
 
          <AppButton color={THEME.MAIN_COLOR} onPress={handleSubmit(onSubmit)}>
             <Text>{isLogin ? 'Войти' : 'Зарегистрироваться'}</Text>
@@ -121,6 +121,9 @@ const styles = StyleSheet.create({
    },
    changeBtn: {
       opacity: 0.7
+   },
+   error: {
+      color: THEME.DANGEROUS_COLOR
    }
 });
 

@@ -3,7 +3,6 @@ import {StyleSheet, View, TouchableOpacity, TouchableNativeFeedback, Platform} f
 import {THEME}                                                                 from "../../theme";
 import {AppTextBold}                                                           from "./AppTextBold";
 
-
 type Props = {
    children: React.ReactNode
    onPress?: any
@@ -42,6 +41,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
    },
    text: {
-      color: '#fff'
+      color: '#fff',
    }
 })

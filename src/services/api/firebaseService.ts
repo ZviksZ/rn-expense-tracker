@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios   from 'axios'
 
 const API_KEY = 'AIzaSyDYi7JBDfmxMf0XXcfffG1Y7_K5gtGrT1I';
 
@@ -20,6 +20,7 @@ export class FirebaseService {
       }
 
       const response =  await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`, authData)
+
 
       return response.data
    }
