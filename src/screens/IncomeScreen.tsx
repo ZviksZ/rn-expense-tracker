@@ -1,25 +1,16 @@
-import React, {useEffect}                                                      from 'react';
+import React                                                                   from 'react';
 import {View, Text, StyleSheet, ActivityIndicator}                             from "react-native";
 import {THEME}                                                                 from "../theme";
 import {AppHeaderIcon}                                                         from "../components/ui/AppHeaderIcon";
 import {HeaderButtons, Item}                                                   from "react-navigation-header-buttons";
-import {useDispatch, useSelector}                                              from "react-redux";
+import {useSelector}                                                           from "react-redux";
 import {selectExpenses, selectIsExpensesLoading, selectIsExpensesLoadingNever} from "../store/ducks/expense/selectors";
-import {fetchExpensesRequest}                                                  from "../store/ducks/expense/thunks";
-import {selectGlobal}                                                          from "../store/ducks/global/selectors";
 
-export const MainScreen = () => {
+
+export const IncomeScreen = () => {
    const {expenses} = useSelector(selectExpenses)
-   const {user} = useSelector(selectGlobal)
    const isLoadingNever = useSelector(selectIsExpensesLoadingNever)
    const isLoading = useSelector(selectIsExpensesLoading)
-   const dispatch = useDispatch()
-
-   useEffect(() => {
-      if (user) {
-         dispatch(fetchExpensesRequest(user.localId))
-      }
-   }, [])
 
    if (isLoading || isLoadingNever) {
       return <View style={styles.center}>
@@ -27,18 +18,18 @@ export const MainScreen = () => {
       </View>
    }
 
-
    return (
       <View style={styles.center}>
          {
-            expenses && expenses.map(expense => <Text key={expense.id}>{expense.amount}</Text>)
+            expenses ? expenses.filter(expense => expense.type === 'income').map(expense => <Text key={expense.id}>{expense.amount}</Text>) :
+               <Text style={{color: THEME.TEXT_COLOR}}>Данных пока нет</Text>
          }
       </View>
    );
 }
 
-MainScreen.navigationOptions = ({navigation}: any) => ({
-   headerTitle: 'Главная',
+IncomeScreen.navigationOptions = ({navigation}: any) => ({
+   headerTitle: 'Доходы',
    headerLeft: () => <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
       <Item title="Toggle drawer" iconName="ios-menu" onPress={() => navigation.toggleDrawer()}/>
    </HeaderButtons>

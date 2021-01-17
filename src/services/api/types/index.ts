@@ -3,4 +3,5 @@ export interface ExpenseAddUpdateInterface {
     date?: string
     type?: string,
     userId?: string
+    text?: string
 }

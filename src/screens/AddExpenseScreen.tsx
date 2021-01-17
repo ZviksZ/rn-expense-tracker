@@ -3,11 +3,12 @@ import {View, StyleSheet, TextInput, Alert, Keyboard, Platform, Text} from "reac
 import {THEME}                                                        from "../theme";
 import {HeaderButtons, Item}                                          from "react-navigation-header-buttons";
 import {AppHeaderIcon}                                                from "../components/ui/AppHeaderIcon";
-import RNPickerSelect                                                 from 'react-native-picker-select';
-import {AppButton}                                                    from "../components/ui/AppButton";
-import {useDispatch, useSelector}                                     from "react-redux";
-import {addExpenseRequest}                                            from "../store/ducks/expense/thunks";
-import {selectGlobal}                                                 from "../store/ducks/global/selectors";
+import RNPickerSelect                                            from 'react-native-picker-select';
+import {AppButton}                                               from "../components/ui/AppButton";
+import {useDispatch, useSelector}                                from "react-redux";
+import {addExpenseRequest}                                       from "../store/ducks/expense/thunks";
+import {selectGlobal}                                            from "../store/ducks/global/selectors";
+import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
 
 
 const types = [
@@ -21,24 +22,34 @@ const types = [
    },
 ];
 
-export const AddExpenseScreen = () => {
+type Props = {
+   navigation: NavigationScreenProp<NavigationState, NavigationParams>
+}
+
+
+
+
+export const AddExpenseScreen = ({navigation}: Props) => {
    const [amount, setAmount] = useState('');
+   const [text, setText] = useState('');
    const [type, setType] = useState('');
 
    const {user} = useSelector(selectGlobal)
    const dispatch = useDispatch()
 
    const addExpense = () => {
-      if (amount.trim() && type.trim() && user?.localId) {
+      if (amount.trim() && type?.trim() && user?.localId) {
          dispatch(addExpenseRequest({
             amount: +amount,
             type,
             date: new Date().toLocaleDateString(),
-            userId: user.localId
+            userId: user.localId,
+            text
          }))
          setAmount('')
          setType('')
          Keyboard.dismiss()
+         navigation.navigate('Main')
       } else {
          Alert.alert('Сумма и тип должны быть заполнены')
       }
@@ -58,6 +69,18 @@ export const AddExpenseScreen = () => {
             placeholder="Введите сумму"
             value={amount}
             onChangeText={setAmount}/>
+         <View style={styles.divider}/>
+         <TextInput
+            autoCorrect={false}
+            autoCapitalize="none"
+            style={
+               Platform.OS === 'ios'
+                  ? pickerSelectStyles.inputIOS
+                  : pickerSelectStyles.inputAndroid
+            }
+            placeholder="Введите описание"
+            value={text}
+            onChangeText={setText}/>
          <View style={styles.divider}/>
          <RNPickerSelect
             placeholder={{label: 'Выберите тип', color: '#9EA0A4', value: null}}

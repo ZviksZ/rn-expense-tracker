@@ -1,6 +1,6 @@
-import React                      from "react";
-import {createAppContainer}       from 'react-navigation'
-import {createStackNavigator}     from 'react-navigation-stack'
+import React                              from "react";
+import {createAppContainer}               from 'react-navigation'
+import {createStackNavigator}             from 'react-navigation-stack'
 import {AboutScreen}                      from "../screens/AboutScreen";
 import {THEME}                            from "../theme";
 import {Platform}                         from 'react-native'
@@ -9,10 +9,11 @@ import {Ionicons}                         from '@expo/vector-icons'
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 import {createDrawerNavigator}            from 'react-navigation-drawer'
 import {AsyncStorageService}              from "../services/helpers/asyncStorageService";
-import {MainScreen}                       from "../screens/MainScreen";
+import {IncomeScreen}                     from "../screens/IncomeScreen";
 import {AuthScreen}                       from "../screens/AuthScreen";
 import {OptionsScreen}                    from "../screens/OptionsScreen";
 import {AddExpenseScreen}                 from "../screens/AddExpenseScreen";
+import {ExpenseScreen}                    from "../screens/ExpenseScreen";
 
 const navigatorOptions = {
    defaultNavigationOptions: {
@@ -27,8 +28,14 @@ const AboutNavigator = createStackNavigator({
    About: AboutScreen
 }, navigatorOptions)
 
+const IncomeNavigator = createStackNavigator({
+   Main: IncomeScreen,
+   Form: AddExpenseScreen
+}, navigatorOptions)
+
 const ExpenseNavigator = createStackNavigator({
-   Main: MainScreen
+   Main: ExpenseScreen,
+   Form: AddExpenseScreen
 }, navigatorOptions)
 
 const AuthScreenNavigator = createStackNavigator({
@@ -43,61 +50,33 @@ const AddExpenseNavigator = createStackNavigator({
    AddExpense: AddExpenseScreen
 }, navigatorOptions)
 
-/*const PostNavigator = createStackNavigator({
-   Main: MainScreen,
-   Post: PostScreen
-}, navigatorOptions)
-
-const BookedNavigator = createStackNavigator({
-   Booked: BookedScreen,
-   Post: PostScreen
-}, navigatorOptions)
-
-const AboutNavigator = createStackNavigator({
-   About: AboutScreen
-}, navigatorOptions)
-
-const CreateNavigator = createStackNavigator({
-   Create: CreateScreen
-}, navigatorOptions)
-
-
-
-const bottomTabsConfig = {
-   Post: {
-      screen: PostNavigator,
+const BottomMainNavigator = createBottomTabNavigator({
+   Expense: {
+      screen: ExpenseNavigator,
       navigationOptions: {
-         tabBarLabel: 'Все',
-         tabBarIcon: info => <Ionicons name="ios-albums" size={25} color={info.tintColor}/>
+         tabBarLabel: 'Расходы',
       }
    },
-   Booked: {
-      screen: BookedNavigator,
+   Income: {
+      screen: IncomeNavigator,
       navigationOptions: {
-         tabBarLabel: 'Избранное',
-         tabBarIcon: info => <Ionicons name="ios-star" size={25} color={info.tintColor}/>
+         tabBarLabel: 'Доходы',
       }
-   }
-}
-
-const BottomNavigator = Platform.OS === 'android' ? createMaterialBottomTabNavigator(bottomTabsConfig, {
-   activeTintColor: '#fff',
-   shifting: true,
-   barStyle: {
-      backgroundColor: THEME.MAIN_COLOR
-   }
-}) : createBottomTabNavigator(bottomTabsConfig, {
+   },
+}, {
    tabBarOptions: {
-      activeTintColor: THEME.MAIN_COLOR
+      activeTintColor: THEME.MAIN_COLOR,
+      tabStyle: {
+         justifyContent: 'center'
+      },
+      showIcon: false
    }
-})*/
-
-
+})
 
 
 const MainNavigator = createDrawerNavigator({
-   PostTabs: {
-      screen: ExpenseNavigator,
+   MainTabs: {
+      screen: BottomMainNavigator,
       navigationOptions: {
          drawerLabel: 'Главная',
          /*drawerIcon: <Ionicons name="ios-star" />*/
@@ -106,7 +85,7 @@ const MainNavigator = createDrawerNavigator({
    Add: {
       screen: AddExpenseNavigator,
       navigationOptions: {
-         drawerLabel: 'Add',
+         drawerLabel: 'Добавить сумму',
 
       },
    },

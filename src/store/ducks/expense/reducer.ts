@@ -17,6 +17,9 @@ export const expenseReducer = produce((draft: Draft<ExpensesStateInterface>, act
 		case ExpensesActionsType.SET_LOADING_STATE:
 			draft.LoadingStatus = action.payload
 			break
+		case ExpensesActionsType.ADD_EXPENSE:
+			draft.expenses = [action.payload, ...draft.expenses]
+			break
 		default:
 			break
 	}

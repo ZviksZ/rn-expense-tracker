@@ -1,10 +1,10 @@
-import {AppActions, AppState}            from "../../store";
-import {Dispatch}                        from "redux";
-import {FirebaseService}                 from "../../../services/api/firebaseService";
-import {Alert}                           from "react-native";
-import {LoadingStatus}                   from "../../types";
-import {setExpenses, setExpensesLoading} from "./actionCreators";
-import {ExpenseAddUpdateInterface}       from "../../../services/api/types";
+import {AppActions, AppState}                        from "../../store";
+import {Dispatch}                                    from "redux";
+import {FirebaseService}                             from "../../../services/api/firebaseService";
+import {Alert}                                       from "react-native";
+import {LoadingStatus}                               from "../../types";
+import {addExpense, setExpenses, setExpensesLoading} from "./actionCreators";
+import {ExpenseAddUpdateInterface}                   from "../../../services/api/types";
 
 
 export const fetchExpensesRequest = (userId: string) => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
@@ -25,6 +25,7 @@ export const addExpenseRequest = (data: ExpenseAddUpdateInterface) => async (dis
    try {
       const name = await FirebaseService.addExpense(data)
 
+      dispatch(addExpense({...data, id: name}))
 
       //dispatch(setExpenses(expenses))
    } catch (e) {
