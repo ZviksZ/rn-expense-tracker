@@ -6,6 +6,7 @@ import {ExpensesActions}        from "./actionCreators";
 
 const initialExpensesState: ExpensesStateInterface = {
 	expenses: null,
+	expenseDetail: null,
 	LoadingStatus: LoadingStatus.NEVER
 }
 export const expenseReducer = produce((draft: Draft<ExpensesStateInterface>, action: ExpensesActions) => {

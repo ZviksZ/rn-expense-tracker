@@ -7,7 +7,7 @@ import {useDispatch, useSelector}                                              f
 import {selectExpenses, selectIsExpensesLoading, selectIsExpensesLoadingNever} from "../store/ducks/expense/selectors";
 import {fetchExpensesRequest}                                                  from "../store/ducks/expense/thunks";
 import {selectGlobal}                                                          from "../store/ducks/global/selectors";
-import {setExpenses}                                                           from "../store/ducks/expense/actionCreators";
+
 
 export const ExpenseScreen = () => {
    const {expenses} = useSelector(selectExpenses)
@@ -39,6 +39,9 @@ export const ExpenseScreen = () => {
 
 ExpenseScreen.navigationOptions = ({navigation}: any) => ({
    headerTitle: 'Расходы',
+   headerRight: () => <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+      <Item title="Add amount" iconName="md-add-circle-outline" onPress={() => navigation.push('Form')}/>
+   </HeaderButtons>,
    headerLeft: () => <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
       <Item title="Toggle drawer" iconName="ios-menu" onPress={() => navigation.toggleDrawer()}/>
    </HeaderButtons>

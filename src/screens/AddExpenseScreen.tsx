@@ -22,14 +22,8 @@ const types = [
    },
 ];
 
-type Props = {
-   navigation: NavigationScreenProp<NavigationState, NavigationParams>
-}
 
-
-
-
-export const AddExpenseScreen = ({navigation}: Props) => {
+export const AddExpenseScreen = ({navigation}: any) => {
    const [amount, setAmount] = useState('');
    const [text, setText] = useState('');
    const [type, setType] = useState('');

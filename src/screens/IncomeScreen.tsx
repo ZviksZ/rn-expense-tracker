@@ -6,7 +6,6 @@ import {HeaderButtons, Item}                                                   f
 import {useSelector}                                                           from "react-redux";
 import {selectExpenses, selectIsExpensesLoading, selectIsExpensesLoadingNever} from "../store/ducks/expense/selectors";
 
-
 export const IncomeScreen = () => {
    const {expenses} = useSelector(selectExpenses)
    const isLoadingNever = useSelector(selectIsExpensesLoadingNever)
@@ -30,6 +29,9 @@ export const IncomeScreen = () => {
 
 IncomeScreen.navigationOptions = ({navigation}: any) => ({
    headerTitle: 'Доходы',
+   headerRight: () => <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+      <Item title="Add amount" iconName="md-add-circle-outline" onPress={() => navigation.push('Form')}/>
+   </HeaderButtons>,
    headerLeft: () => <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
       <Item title="Toggle drawer" iconName="ios-menu" onPress={() => navigation.toggleDrawer()}/>
    </HeaderButtons>

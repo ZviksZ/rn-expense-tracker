@@ -8,12 +8,13 @@ import {ChooseScreenContainer}         from "./src/components/ChooseScreenContai
 
 /*
 * TODO
-* 1 - PUSH-уведомления
-* 2 - слайдеры
+* 1 - AsyncStorage user(проверка токена - refresh_token)
+* 2 - карточки сумм, вывод общей суммы
 * 3 - формы(валидация, отправка)
-* 4 - firebase
-* 5 - анимация
-* 6 - навигация
+* 4 - firebase(update, delete - смахиванием влево)
+* 5 - вывод графиков
+* 6 - переход на форму из шапки кнопкой
+* 7 - тип для navigation Props
 * */
 
 

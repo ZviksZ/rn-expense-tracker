@@ -12,5 +12,6 @@ export interface ExpenseInterface {
 
 export interface ExpensesStateInterface {
 	expenses: ExpenseInterface[] | null
+	expenseDetail: ExpenseInterface | null
 	LoadingStatus: LoadingStatus
 }

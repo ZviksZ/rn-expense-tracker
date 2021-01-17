@@ -82,13 +82,6 @@ const MainNavigator = createDrawerNavigator({
          /*drawerIcon: <Ionicons name="ios-star" />*/
       }
    },
-   Add: {
-      screen: AddExpenseNavigator,
-      navigationOptions: {
-         drawerLabel: 'Добавить сумму',
-
-      },
-   },
    About: {
       screen: AboutNavigator,
       navigationOptions: {
