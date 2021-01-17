@@ -13,3 +13,4 @@ export const selectIsGlobalLoaded = (state: RootStateInterface): boolean => sele
 export const selectIsGlobalLoadingSuccess = (state: RootStateInterface): boolean => selectGlobalLoadingStatus(state) === LoadingStatus.SUCCESS
 export const selectIsGlobalLoadingError = (state: RootStateInterface): boolean => selectGlobalLoadingStatus(state) === LoadingStatus.ERROR
 export const selectIsGlobalLoadingNever = (state: RootStateInterface): boolean => selectGlobalLoadingStatus(state) === LoadingStatus.NEVER
+

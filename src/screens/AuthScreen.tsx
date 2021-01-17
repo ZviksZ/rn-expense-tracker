@@ -1,13 +1,14 @@
-import React, {useState}                                              from 'react';
+import React, {useReducer, useState}                                  from 'react';
 import {StyleSheet, ActivityIndicator, View, TextInput, Text, Button} from "react-native";
 import {THEME}                                                        from "../theme";
 import {NavigationParams, NavigationScreenProp, NavigationState}      from "react-navigation";
-import {AppButton}                                                    from "../components/ui/AppButton";
-import {useForm, Controller}                                          from "react-hook-form";
-import {yupResolver}                                                  from '@hookform/resolvers/yup'
-import * as yup                                                       from 'yup'
-import {useDispatch}                                             from "react-redux";
-import {loginRequest, registerRequest}                           from "../store/ducks/global/thunks";
+import {AppButton}                           from "../components/ui/AppButton";
+import {useForm, Controller}                 from "react-hook-form";
+import {yupResolver}                         from '@hookform/resolvers/yup'
+import * as yup                              from 'yup'
+import {useDispatch, useSelector}            from "react-redux";
+import {loginRequest, registerRequest}       from "../store/ducks/global/thunks";
+import {selectGlobal, selectIsGlobalLoading} from "../store/ducks/global/selectors";
 
 export const loginSchema = yup.object().shape({
    login: yup.string().required('Обязательное поле').email('Введите корректный email'),
@@ -26,6 +27,7 @@ interface IFormInputs {
 export const AuthScreen = () => {
    const [isLogin, setIsLogin] = useState(true)
    const dispatch = useDispatch()
+   const isLoading = useSelector(selectIsGlobalLoading)
    const {control, handleSubmit, errors} = useForm<IFormInputs>({
       resolver: yupResolver(loginSchema),
    })
@@ -40,6 +42,12 @@ export const AuthScreen = () => {
 
    const changeAuthTypeHandler = () => {
       setIsLogin(prev => !prev)
+   }
+
+   if (isLoading) {
+      return <View style={styles.center}>
+         <ActivityIndicator color={THEME.MAIN_COLOR} size="large"/>
+      </View>
    }
 
    return (
@@ -101,7 +109,7 @@ const styles = StyleSheet.create({
       flex: 1,
       height: '100%',
       flexDirection: "column",
-      justifyContent:"flex-start",
+      justifyContent: "flex-start",
       marginBottom: 15,
       paddingVertical: 20,
       paddingHorizontal: 10
@@ -124,6 +132,11 @@ const styles = StyleSheet.create({
    },
    error: {
       color: THEME.DANGEROUS_COLOR
-   }
+   },
+   center: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+   },
 });
 

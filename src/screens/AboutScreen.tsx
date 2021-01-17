@@ -7,8 +7,7 @@ import {HeaderButtons, Item}                       from "react-navigation-header
 export const AboutScreen = () => {
    return (
       <View style={styles.center}>
-         <ActivityIndicator color={THEME.MAIN_COLOR} size="large"/>
-         <Text>Это приложение для личных заметок</Text>
+         <Text>Это приложение для ведения расходов</Text>
          <Text>Версия приложения <Text style={styles.version}>1.0.0</Text></Text>
       </View>
    );

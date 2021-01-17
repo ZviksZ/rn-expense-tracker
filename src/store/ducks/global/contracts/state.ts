@@ -12,6 +12,5 @@ export interface UserDataInterface {
 
 export interface GlobalStateInterface {
 	user: UserDataInterface | null
-	globalMessage: string | null
 	LoadingStatus: LoadingStatus
 }

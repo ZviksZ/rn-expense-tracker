@@ -12,6 +12,7 @@ import {AsyncStorageService}              from "../services/helpers/asyncStorage
 import {MainScreen}                       from "../screens/MainScreen";
 import {AuthScreen}                       from "../screens/AuthScreen";
 import {OptionsScreen}                    from "../screens/OptionsScreen";
+import {AddExpenseScreen}                 from "../screens/AddExpenseScreen";
 
 const navigatorOptions = {
    defaultNavigationOptions: {
@@ -37,6 +38,11 @@ const AuthScreenNavigator = createStackNavigator({
 const OptionsScreenNavigator = createStackNavigator({
    Main: OptionsScreen
 }, navigatorOptions)
+
+const AddExpenseNavigator = createStackNavigator({
+   AddExpense: AddExpenseScreen
+}, navigatorOptions)
+
 /*const PostNavigator = createStackNavigator({
    Main: MainScreen,
    Post: PostScreen
@@ -54,6 +60,8 @@ const AboutNavigator = createStackNavigator({
 const CreateNavigator = createStackNavigator({
    Create: CreateScreen
 }, navigatorOptions)
+
+
 
 const bottomTabsConfig = {
    Post: {
@@ -94,6 +102,13 @@ const MainNavigator = createDrawerNavigator({
          drawerLabel: 'Главная',
          /*drawerIcon: <Ionicons name="ios-star" />*/
       }
+   },
+   Add: {
+      screen: AddExpenseNavigator,
+      navigationOptions: {
+         drawerLabel: 'Add',
+
+      },
    },
    About: {
       screen: AboutNavigator,
