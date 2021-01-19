@@ -1,21 +1,23 @@
 import React, {useState, useRef}                                                       from 'react';
-import {View, Text, StyleSheet, ActivityIndicator, Button, ScrollView}         from "react-native";
-import {THEME}                                                                 from "../theme";
-import {AppHeaderIcon}                                                         from "../components/ui/AppHeaderIcon";
-import {HeaderButtons, Item}                                                   from "react-navigation-header-buttons";
-import {useDispatch, useSelector}                                              from "react-redux";
-import {selectExpenses, selectIsExpensesLoading, selectIsExpensesLoadingNever} from "../store/ducks/expense/selectors";
-import {ExpenseCard}                                                           from "../components/ExpenseCard";
-import BottomSheet                                                             from 'reanimated-bottom-sheet';
-import {ExpenseInterface}                                                      from "../store/ducks/expense/contracts/state";
+import {View, Text, StyleSheet, ActivityIndicator, Button, ScrollView}                                from "react-native";
+import {THEME}                                                                                        from "../theme";
+import {AppHeaderIcon}                                                                                from "../components/ui/AppHeaderIcon";
+import {HeaderButtons, Item}                                                                          from "react-navigation-header-buttons";
+import {useDispatch, useSelector}                                                                     from "react-redux";
+import {selectExpenses, selectExpensesSummary, selectIsExpensesLoading, selectIsExpensesLoadingNever} from "../store/ducks/expense/selectors";
+import {ExpenseCard}                                                                                  from "../components/ExpenseCard";
+import BottomSheet                                                                                    from 'reanimated-bottom-sheet';
+import {ExpenseInterface}                                                                             from "../store/ducks/expense/contracts/state";
 
 import {removeExpenseRequest} from "../store/ducks/expense/thunks";
 import {editExpense}          from "../store/ducks/expense/actionCreators";
 import {AppButton}            from "../components/ui/AppButton";
+import {SummaryCard}          from "../components/SummaryCard";
 
 
 export const IncomeScreen = ({navigation}: any) => {
    const {expenses} = useSelector(selectExpenses)
+   const summaryData = useSelector(selectExpensesSummary)
    const isLoadingNever = useSelector(selectIsExpensesLoadingNever)
    const isLoading = useSelector(selectIsExpensesLoading)
    const dispatch = useDispatch()
@@ -75,6 +77,7 @@ export const IncomeScreen = ({navigation}: any) => {
 
    return (
       <>
+         <SummaryCard data={summaryData}/>
          <ScrollView style={styles.list}>
             {
                expenses ? expenses.filter(expense => expense.type === 'income').map(expense => <ExpenseCard activeCard={activeExpense && activeExpense.id === expense.id} key={expense.id} onPress={expensePressHandler} expense={expense}/>) :

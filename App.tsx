@@ -9,7 +9,6 @@ import {getStorageUserRequest}      from "./src/store/ducks/global/thunks";
 
 /*
 * TODO
-* 1 - AsyncStorage user(проверка токена - refresh_token)
 * 2 - карточки сумм, вывод общей суммы
 * 3 - вывод сумм
 * */

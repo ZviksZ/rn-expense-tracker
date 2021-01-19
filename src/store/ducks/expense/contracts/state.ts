@@ -3,10 +3,10 @@ import { LoadingStatus } from '../../../types'
 
 export interface ExpenseInterface {
 	id?: string
-	amount?: number
+	amount: number
 	date?: string
 	type?: string
-	userId?: string
+	userId: string
 	text?: string
 }
 

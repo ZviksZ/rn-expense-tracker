@@ -1,21 +1,23 @@
 import React, {useEffect, useState, useRef}                                              from 'react';
-import {View, Text, StyleSheet, ActivityIndicator, ScrollView, Button, TouchableOpacity} from "react-native";
-import {THEME}                                                                           from "../theme";
-import {AppHeaderIcon}                                                                   from "../components/ui/AppHeaderIcon";
-import {HeaderButtons, Item}                                                             from "react-navigation-header-buttons";
-import {useDispatch, useSelector}                                                        from "react-redux";
-import {selectExpenses, selectIsExpensesLoading, selectIsExpensesLoadingNever}           from "../store/ducks/expense/selectors";
-import {fetchExpensesRequest, removeExpenseRequest}                            from "../store/ducks/expense/thunks";
-import {selectGlobal}                                                          from "../store/ducks/global/selectors";
-import {ExpenseCard}                                                           from "../components/ExpenseCard";
-import {ExpenseInterface}                                                      from "../store/ducks/expense/contracts/state";
-import BottomSheet                                                             from 'reanimated-bottom-sheet';
-import {AppButton}                                                             from "../components/ui/AppButton";
-import {editExpense}                                                           from "../store/ducks/expense/actionCreators";
+import {View, Text, StyleSheet, ActivityIndicator, ScrollView, Button, TouchableOpacity}              from "react-native";
+import {THEME}                                                                                        from "../theme";
+import {AppHeaderIcon}                                                                                from "../components/ui/AppHeaderIcon";
+import {HeaderButtons, Item}                                                                          from "react-navigation-header-buttons";
+import {useDispatch, useSelector}                                                                     from "react-redux";
+import {selectExpenses, selectExpensesSummary, selectIsExpensesLoading, selectIsExpensesLoadingNever} from "../store/ducks/expense/selectors";
+import {fetchExpensesRequest, removeExpenseRequest}                                                   from "../store/ducks/expense/thunks";
+import {selectGlobal}                                                                                 from "../store/ducks/global/selectors";
+import {ExpenseCard}                                                                                  from "../components/ExpenseCard";
+import {ExpenseInterface}                                                                             from "../store/ducks/expense/contracts/state";
+import BottomSheet                                                                                    from 'reanimated-bottom-sheet';
+import {AppButton}        from "../components/ui/AppButton";
+import {editExpense}      from "../store/ducks/expense/actionCreators";
+import {SummaryCard}      from "../components/SummaryCard";
 
 export const ExpenseScreen = ({navigation}: any) => {
    const {expenses} = useSelector(selectExpenses)
    const {user} = useSelector(selectGlobal)
+   const summaryData = useSelector(selectExpensesSummary)
    const isLoadingNever = useSelector(selectIsExpensesLoadingNever)
    const isLoading = useSelector(selectIsExpensesLoading)
    const dispatch = useDispatch()
@@ -80,6 +82,7 @@ export const ExpenseScreen = ({navigation}: any) => {
 
    return (
       <>
+         <SummaryCard data={summaryData}/>
          <ScrollView style={styles.list}>
             {
                expenses ? expenses.filter(expense => expense.type === 'expense').map(expense => <ExpenseCard activeCard={activeExpense && activeExpense.id === expense.id} key={expense.id}

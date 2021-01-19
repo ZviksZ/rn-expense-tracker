@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
       padding: 10,
       borderColor: THEME.LIGHT_COLOR,
       borderWidth: 2,
-      borderStyle: 'solid'
+      borderStyle: 'solid',
+      borderRadius: 6
    },
    activeCard: {
       backgroundColor: THEME.LIGHT_COLOR
