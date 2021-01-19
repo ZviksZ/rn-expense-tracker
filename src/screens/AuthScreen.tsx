@@ -100,7 +100,7 @@ export const AuthScreen = () => {
    );
 }
 
-AuthScreen.navigationOptions = ({navigation}: Props) => ({
+AuthScreen.navigationOptions = () => ({
    headerTitle: 'Авторизация',
 })
 

@@ -1,14 +1,16 @@
-import React, {useState}                                              from "react";
+import React, {useEffect, useState}                                   from "react";
 import {View, StyleSheet, TextInput, Alert, Keyboard, Platform, Text} from "react-native";
 import {THEME}                                                        from "../theme";
-import {HeaderButtons, Item}                                          from "react-navigation-header-buttons";
-import {AppHeaderIcon}                                                from "../components/ui/AppHeaderIcon";
+import {HeaderButtons, Item}                                     from "react-navigation-header-buttons";
+import {AppHeaderIcon}                                           from "../components/ui/AppHeaderIcon";
 import RNPickerSelect                                            from 'react-native-picker-select';
 import {AppButton}                                               from "../components/ui/AppButton";
 import {useDispatch, useSelector}                                from "react-redux";
-import {addExpenseRequest}                                       from "../store/ducks/expense/thunks";
+import {addExpenseRequest, updateExpenseRequest}                 from "../store/ducks/expense/thunks";
 import {selectGlobal}                                            from "../store/ducks/global/selectors";
 import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
+import {selectExpenses}                                          from "../store/ducks/expense/selectors";
+import {editExpense}                                             from "../store/ducks/expense/actionCreators";
 
 
 const types = [
@@ -29,19 +31,42 @@ export const AddExpenseScreen = ({navigation}: any) => {
    const [type, setType] = useState('');
 
    const {user} = useSelector(selectGlobal)
+   const {expenseDetail} = useSelector(selectExpenses)
    const dispatch = useDispatch()
 
-   const addExpense = () => {
+   useEffect(() => {
+      if (expenseDetail) {
+         setText(expenseDetail?.text || '')
+         setType(expenseDetail?.type || '')
+         setAmount(expenseDetail?.amount?.toString() || '')
+      }
+
+      return () => {
+         dispatch(editExpense(null))
+      }
+   }, [expenseDetail])
+
+   const submitHandler = () => {
       if (amount.trim() && type?.trim() && user?.localId) {
-         dispatch(addExpenseRequest({
-            amount: +amount,
-            type,
-            date: new Date().toLocaleDateString(),
-            userId: user.localId,
-            text
-         }))
+         if (expenseDetail && expenseDetail.id) {
+            dispatch(updateExpenseRequest(expenseDetail.id, {
+               amount: +amount,
+               type,
+               text
+            }))
+         } else {
+            dispatch(addExpenseRequest({
+               amount: +amount,
+               type,
+               date: new Date().toLocaleDateString(),
+               userId: user.localId,
+               text
+            }))
+         }
+
          setAmount('')
          setType('')
+         setText('')
          Keyboard.dismiss()
          navigation.navigate('Main')
       } else {
@@ -87,8 +112,8 @@ export const AddExpenseScreen = ({navigation}: any) => {
             value={type}
          />
          <View style={styles.divider}/>
-         <AppButton color={THEME.MAIN_COLOR} onPress={addExpense}>
-            <Text>Добавить сумму</Text>
+         <AppButton color={THEME.MAIN_COLOR} onPress={submitHandler}>
+            <Text>{expenseDetail ? 'Обновить сумму' : 'Добавить сумму'}</Text>
          </AppButton>
       </View>
    );

@@ -55,8 +55,8 @@ export class FirebaseService {
       return response.data
    }
 
-   static async updateExpense(id: string) {
-      const response = await axios.patch(`https://rn-expense-tracker-default-rtdb.firebaseio.com/expenses/${id}.json`)
+   static async updateExpense(id: string, data: ExpenseAddUpdateInterface) {
+      const response = await axios.patch(`https://rn-expense-tracker-default-rtdb.firebaseio.com/expenses/${id}.json`, data)
 
       return response.data
    }

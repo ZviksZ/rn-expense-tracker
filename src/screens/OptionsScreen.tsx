@@ -1,17 +1,17 @@
 import React                                       from 'react';
-import {View, Text, StyleSheet, ActivityIndicator} from "react-native";
-import {THEME}                                     from "../theme";
-import {AppHeaderIcon}                             from "../components/ui/AppHeaderIcon";
-import {HeaderButtons, Item}                       from "react-navigation-header-buttons";
-import {AppButton}                                 from "../components/ui/AppButton";
-import {useDispatch}                               from "react-redux";
-import {setUser}                                   from "../store/ducks/global/actionCreators";
+import {View, Text, StyleSheet} from "react-native";
+import {THEME}               from "../theme";
+import {AppHeaderIcon}       from "../components/ui/AppHeaderIcon";
+import {HeaderButtons, Item} from "react-navigation-header-buttons";
+import {AppButton}           from "../components/ui/AppButton";
+import {useDispatch}         from "react-redux";
+import {logoutRequest}       from "../store/ducks/global/thunks";
 
 export const OptionsScreen = () => {
    const dispatch = useDispatch()
 
    const logoutHandler = () => {
-      dispatch(setUser(null))
+      dispatch(logoutRequest())
    }
 
    return (

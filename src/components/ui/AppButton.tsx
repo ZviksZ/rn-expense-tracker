@@ -21,9 +21,9 @@ export const AppButton: React.FC<Props> = ({children, style, onPress, color = TH
    return (
       <>
          {
-            Platform.OS === 'android' ? <TouchableNativeFeedback onPress={onPress} >
+            Platform.OS === 'android' ? <TouchableNativeFeedback onPressIn={onPress} >
                {content}
-            </TouchableNativeFeedback> : <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+            </TouchableNativeFeedback> : <TouchableOpacity onPressIn={onPress} activeOpacity={0.7}>
                {content}
             </TouchableOpacity>
          }

@@ -21,6 +21,21 @@ export const expenseReducer = produce((draft: Draft<ExpensesStateInterface>, act
 		case ExpensesActionsType.ADD_EXPENSE:
 			draft.expenses = [action.payload, ...draft.expenses]
 			break
+		case ExpensesActionsType.REMOVE_EXPENSE:
+			draft.expenses = draft.expenses && draft.expenses.filter(expense => expense.id !== action.payload)
+			break
+		case ExpensesActionsType.UPDATE_EXPENSE:
+			draft.expenses = draft.expenses && draft.expenses.map(expense => {
+				if (expense.id == action.id) {
+					return {...expense, ...action.data}
+				} else {
+					return expense
+				}
+			})
+			break
+		case ExpensesActionsType.EDIT_EXPENSE:
+			draft.expenseDetail = action.payload
+			break
 		default:
 			break
 	}

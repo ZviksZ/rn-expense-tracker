@@ -17,4 +17,12 @@ export class AsyncStorageService {
          console.log(e)
       }
    }
+
+   static async removeItem(key: string) {
+      try {
+         return await AsyncStorage.removeItem(key)
+      } catch(e) {
+         console.log(e)
+      }
+   }
 }

@@ -1,20 +1,17 @@
-import React, {useState}               from 'react';
-import {bootstrap}                     from './src/bootstrap';
-import AppLoading                      from 'expo-app-loading'
-import {Provider}                      from "react-redux";
-import {store}                         from './src/store/store'
-import {ChooseScreenContainer}         from "./src/components/ChooseScreenContainer";
+import React, {useEffect, useState} from 'react';
+import {bootstrap}                  from './src/bootstrap';
+import AppLoading                   from 'expo-app-loading'
+import {Provider, useDispatch}      from "react-redux";
+import {store}                      from './src/store/store'
+import {RouterContainer}            from "./src/components/RouterContainer";
+import {getStorageUserRequest}      from "./src/store/ducks/global/thunks";
 
 
 /*
 * TODO
 * 1 - AsyncStorage user(проверка токена - refresh_token)
 * 2 - карточки сумм, вывод общей суммы
-* 3 - формы(валидация, отправка)
-* 4 - firebase(update, delete - смахиванием влево)
-* 5 - вывод графиков
-* 6 - переход на форму из шапки кнопкой
-* 7 - тип для navigation Props
+* 3 - вывод сумм
 * */
 
 
@@ -31,7 +28,7 @@ export default function App() {
 
    return (
       <Provider store={store}>
-         <ChooseScreenContainer/>
+         <RouterContainer/>
       </Provider>
    );
 }
