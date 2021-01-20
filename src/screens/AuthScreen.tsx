@@ -84,7 +84,6 @@ export const AuthScreen = () => {
                />
             )}
             name="password"
-            defaultValue=""
          />
          {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
 

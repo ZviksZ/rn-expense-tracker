@@ -25,6 +25,7 @@ export const ExpenseScreen = ({navigation}: any) => {
 
    const sheetRef = useRef(null);
 
+
    const expensePressHandler = (expense: ExpenseInterface) => {
       if (activeExpense && activeExpense.id === expense.id) {
          // @ts-ignore
@@ -38,7 +39,6 @@ export const ExpenseScreen = ({navigation}: any) => {
    }
 
    const removeHandler = () => {
-      console.log(activeExpense)
       if (activeExpense?.id) {
          dispatch(removeExpenseRequest(activeExpense.id))
          // @ts-ignore
@@ -82,7 +82,9 @@ export const ExpenseScreen = ({navigation}: any) => {
 
    return (
       <>
-         <SummaryCard data={summaryData}/>
+         <View style={styles.list}>
+            <SummaryCard data={summaryData}/>
+         </View>
          <ScrollView style={styles.list}>
             {
                expenses ? expenses.filter(expense => expense.type === 'expense').map(expense => <ExpenseCard activeCard={activeExpense && activeExpense.id === expense.id} key={expense.id}

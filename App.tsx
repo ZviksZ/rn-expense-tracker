@@ -9,8 +9,7 @@ import {getStorageUserRequest}      from "./src/store/ducks/global/thunks";
 
 /*
 * TODO
-* 2 - карточки сумм, вывод общей суммы
-* 3 - вывод сумм
+* 1- проверить массив при добавлении и обновлении
 * */
 
 

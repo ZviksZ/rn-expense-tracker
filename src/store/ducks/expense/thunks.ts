@@ -5,6 +5,7 @@ import {Alert}                                                                  
 import {LoadingStatus}                                                             from "../../types";
 import {addExpense, removeExpense, setExpenses, setExpensesLoading, updateExpense} from "./actionCreators";
 import {ExpenseAddUpdateInterface}                                                 from "../../../services/api/types";
+import {ExpenseInterface}                                                          from "./contracts/state";
 
 
 export const fetchExpensesRequest = (userId: string) => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
@@ -21,9 +22,9 @@ export const fetchExpensesRequest = (userId: string) => async (dispatch: Dispatc
 }
 
 
-export const addExpenseRequest = (data: ExpenseAddUpdateInterface) => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+export const addExpenseRequest = (data: ExpenseInterface) => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
    try {
-      const name = await FirebaseService.addExpense(data)
+      const {name} = await FirebaseService.addExpense(data)
 
       dispatch(addExpense({...data, id: name}))
    } catch (e) {
@@ -42,7 +43,7 @@ export const removeExpenseRequest = (id: string) => async (dispatch: Dispatch<Ap
    }
 }
 
-export const updateExpenseRequest = (id: string, data: ExpenseAddUpdateInterface) => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+export const updateExpenseRequest = (id: string, data: ExpenseInterface) => async (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
    try {
       await FirebaseService.updateExpense(id, data)
 

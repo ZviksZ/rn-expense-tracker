@@ -77,7 +77,10 @@ export const IncomeScreen = ({navigation}: any) => {
 
    return (
       <>
-         <SummaryCard data={summaryData}/>
+         <View style={styles.list}>
+            <SummaryCard data={summaryData}/>
+         </View>
+
          <ScrollView style={styles.list}>
             {
                expenses ? expenses.filter(expense => expense.type === 'income').map(expense => <ExpenseCard activeCard={activeExpense && activeExpense.id === expense.id} key={expense.id} onPress={expensePressHandler} expense={expense}/>) :

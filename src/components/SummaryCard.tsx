@@ -28,10 +28,11 @@ const styles = StyleSheet.create({
    wrapper: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginVertical: 15,
+      marginVertical: 5,
       padding: 10,
       borderWidth: 2,
-      borderColor: THEME.SECONDARY_COLOR
+      borderColor: THEME.SECONDARY_COLOR,
+      borderRadius: 4
    },
    part: {
       width: '50%',
